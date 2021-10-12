@@ -168,7 +168,7 @@ public class TokenHelper {
     }
 
     public Claims getAllClaimsFromToken(String token) {
-        System.out.println("validating AccessToken signature with PublicKey " + publicKey + "\n");
+        System.out.println("validating token signature with PublicKey: " + publicKey + "\n");
         Claims claims;
         try {
             claims = Jwts.parser()
@@ -176,11 +176,12 @@ public class TokenHelper {
                     .setSigningKey(getPublicKey())
                     .parseClaimsJws(token)
                     .getBody();
+            System.out.println("Token validated. Claims: " + claims.entrySet().toString() + "\n");
         } catch (Exception e) {
+            System.out.println("Token validation failed.");
+            System.out.println(e.getMessage());
             claims = null;
         }
-
-        System.out.println(" AccessToken contains these claims: " + claims.entrySet().toString() + "\n");
         return claims;
     }
 

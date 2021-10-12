@@ -1,5 +1,6 @@
 package com.example.hello;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -22,28 +23,27 @@ public class JWTFilter implements Filter {
             FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
-        System.out.println("Starting a transaction for req : " + req.getRequestURI());
+        System.out.println("Received request for : " + req.getRequestURI() + "\n");
         HttpServletResponse resp = (HttpServletResponse) response;
         //resp.setHeader("Access-Control-Allow-Origin", "https://localhost:8443");
         resp.setHeader("Access-Control-Allow-Origin", "*");
-
         resp.setHeader( "Access-Control-Allow-Headers", "Content-Type, X-Requested-With , accept,Origin, Access-Control-Request-Method,Access-Control-Request-Headers, Content-Range, Content-Disposition, Content-Description");
         resp.setHeader("Access-Control-Allow-Methods" ,"GET, POST, PUT, DELETE, OPTIONS");
         String auth  =  req.getHeader("Authorization");
-        System.out.println("auth header =" + auth);
+
 //auth = "123asdfasdfasdfasdf";
         if(auth != null) {
             auth = auth.substring(7);
-            System.out.println("JWT=" + auth);
+            System.out.println("Extracted JWT (from header) = " + auth + "\n");
             TokenHelper jwt = new TokenHelper();
-            jwt.getAllClaimsFromToken(auth);
-
+            Claims c = jwt.getAllClaimsFromToken(auth);
+            request.setAttribute("claims", c);
             chain.doFilter(request, response);
         }else {
-            System.out.println("www 2222");
+            System.out.println("JWT validation failed.");
             resp.sendError(401);
         }
-        System.out.println("Committing a transaction for req : " + req.getRequestURI());
+        System.out.println("Process completed for : " + req.getRequestURI());
     }
 
     // other methods
