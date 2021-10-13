@@ -176,7 +176,7 @@ public class TokenHelper {
                     .setSigningKey(getPublicKey())
                     .parseClaimsJws(token)
                     .getBody();
-            System.out.println("Token validated. Claims: " + claims.entrySet().toString() + "\n");
+            System.out.println("Token extracted. Claims: " + claims.entrySet().toString() + "\n");
         } catch (Exception e) {
             System.out.println("Token validation failed.");
             System.out.println(e.getMessage());
