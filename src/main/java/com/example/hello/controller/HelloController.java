@@ -22,9 +22,8 @@ public class HelloController {
 		return "{\"a\":\"b\"}";
 		}
 
-//	@GetMapping("/api/add")
 		@CrossOrigin(origins = "*" , maxAge = 10000)
-		@RequestMapping(value = "/api/add", method = { RequestMethod.OPTIONS, RequestMethod.GET })
+		@RequestMapping(value = "/api/time", method = { RequestMethod.OPTIONS, RequestMethod.GET })
 		public String doAdd(HttpServletRequest req, HttpServletResponse resp, Model model) {
 			//resp.setHeader("Access-Control-Allow-Origin", "https://localhost:8443");
 			resp.setHeader("Access-Control-Allow-Origin", "*");

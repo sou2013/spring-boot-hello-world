@@ -31,6 +31,12 @@ public class JWTFilter implements Filter {
         resp.setHeader("Access-Control-Allow-Methods" ,"GET, POST, PUT, DELETE, OPTIONS");
         String auth  =  req.getHeader("Authorization");
 
+        if("OPTIONS".equals(req.getMethod().toUpperCase())) {
+        	System.out.println("exiting JWTFilter");
+        	resp.setStatus(200);
+        	return;
+        }
+        
 //auth = "123asdfasdfasdfasdf";
         if(auth != null) {
             auth = auth.substring(7);
