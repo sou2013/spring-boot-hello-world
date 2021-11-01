@@ -174,6 +174,7 @@ public class TokenHelper {
             claims = Jwts.parser()
                     // .setSigningKey(SECRET)
                     .setSigningKey(getPublicKey())
+
                     .parseClaimsJws(token)
                     .getBody();
             System.out.println("Token validated. Claims: " + claims.entrySet().toString() + "\n");

@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 
-@Component
-@Order(1)
-public class JWTFilter implements Filter {
+//@Component
+//@Order(1)
+public class JWTFilter { //implements Filter {
 
-    @Override
+   // @Override
     public void doFilter(
             ServletRequest request,
             ServletResponse response,
